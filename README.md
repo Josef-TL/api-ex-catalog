@@ -32,17 +32,19 @@ Product IDs in this database are 4 digits
 
 ```json
 {
-    "product_id": <Product ID : Int> ,
-    "title" <Title : Int>,
-    "description" <Product Description : Str>,
-    "category" <Category : Str>,
-    "price" <Price : Double>,
-    "rating" <Product Rating : Int>,
-    "stock" <Stock of product : Int>
+    "product_id": "<Product ID : Int>" ,
+    "title": "<Title : Str>",
+    "description": "<Product Description : Str>",
+    "category": "<Category : Str>",
+    "price": "<Price : Double>",
+    "rating": "<Product Rating : Int>",
+    "stock": "<Stock of product : Int>"
 }
 
 ```
 
 - **Response**
-    - **201 Created
-    -
+    - **201 Created:** 
+    - **400 Bad Request:** Missing Data in Body
+    - **409 Conflict:** Product already exists
+    - **500 Error:** Connection error
