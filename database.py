@@ -92,7 +92,7 @@ def create(product):
                         "price" ,
                         "rating" ,
                         "stock")
-                        VALUES (:product_id,:title,:description,:category,:price,:rating,:stock)''', product[0])
+                        VALUES (:product_id,:title,:description,:category,:price,:rating,:stock)''', product)
        
         
         new_product_id = cur.lastrowid
