@@ -1,8 +1,8 @@
 import sqlite3
 import os
 
-#db_path = os.getenv('DB_PATH')
-db_path = 'datab.db'
+db_path = os.getenv('DB_PATH')
+#db_path = 'datab.db'
 
 
 def init():
@@ -11,7 +11,7 @@ def init():
         cur = con.cursor()
 
         cur.execute('''CREATE TABLE IF NOT EXISTS products (
-                    product_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    product_id INTEGER PRIMARY KEY, 
                     title TEXT,
                     description TEXT,
                     category TEXT,
@@ -26,13 +26,14 @@ def init():
         
         if row_count == 0:
             cur.execute('''INSERT INTO products (
+                        "product_id" ,
                         "title" ,
                         "description" ,
                         "category" ,
                         "price" ,
                         "rating" ,
                         "stock")
-                        VALUES ("product1","description1","category1",100,5,10)
+                        VALUES (1234,"product1","description1","category1",100,5,10)
                         
                         ''')
             con.commit()
@@ -59,7 +60,7 @@ def read_all():
 def read(id):
     with sqlite3.connect(db_path) as con:
         cur = con.cursor()
-        cur.execute("SELECT * FROM products WHERE id = ?", (id,))
+        cur.execute("SELECT * FROM products WHERE product_id = ?", (id,))
         row = cur.fetchone()
 
         if row:
@@ -84,13 +85,14 @@ def create(product):
        
         cur.execute('''
             INSERT INTO products (
+                        "product_id" ,
                         "title" ,
                         "description" ,
                         "category" ,
                         "price" ,
                         "rating" ,
                         "stock")
-                        VALUES (:title,:description,:category,:price,:rating,:stock)''', product[0])
+                        VALUES (:product_id,:title,:description,:category,:price,:rating,:stock)''', product[0])
        
         
         new_product_id = cur.lastrowid
@@ -104,7 +106,7 @@ def create(product):
 def delete(id):
     with sqlite3.connect(db_path) as conn:
         cur = conn.cursor()
-        cur.execute("DELETE FROM products WHERE id= ?", id)
+        cur.execute("DELETE FROM products WHERE product_id= ?", id)
         conn.commit()
 
 
